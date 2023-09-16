@@ -1,7 +1,7 @@
 import { db } from "../models/db";
 
 const Post = {
-    findAll: async () => {
+    fetchAllPosts: async () => {
         const sql = `SELECT * FROM posts`;
         const posts = await db.all(sql);
         console.log(posts);

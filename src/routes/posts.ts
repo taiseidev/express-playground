@@ -3,6 +3,7 @@ const router = express.Router();
 
 import postsController from "../controllers/posts-controller";
 
-router.get("/", postsController.getAllPosts);
+// 全ての投稿を取得
+router.get("/", postsController.fetchAllPosts);
 
 module.exports = router;
