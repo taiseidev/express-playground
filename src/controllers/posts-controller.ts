@@ -26,12 +26,6 @@ class PostController {
             return res.status(400).send({ error: errors.join(", ") });
         }
 
-        const newPost = {
-            userId: userId,
-            title: title,
-            body: body,
-        };
-
         // 201 Created（POSTリクエストが成功）
         // 成功した投稿内容を返却
         try {
@@ -42,7 +36,6 @@ class PostController {
                 res.status(500).send({ error: error.message });
             }
         }
-        res.status(201).send(newPost);
     }
 }
 
