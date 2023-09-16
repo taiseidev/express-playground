@@ -1,11 +1,5 @@
-import express from "express";
-const app = express();
+import app from "./app";
 const PORT = 3000;
-
-// サンプルのルートエンドポイントを追加
-app.get("/", (_: any, res: { json: (arg0: { message: string }) => void }) => {
-    res.json({ message: "テスト" });
-});
 
 // サーバを起動
 app.listen(PORT, () => {
