@@ -7,5 +7,5 @@ import postsController from "../controllers/posts-controller";
 router.get("/", postsController.fetchAllPosts);
 
 // 新規投稿を作成する
-router.post("/", postsController.fetchAllPosts);
+router.post("/", postsController.createPost);
 module.exports = router;
