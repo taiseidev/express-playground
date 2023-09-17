@@ -8,4 +8,7 @@ router.get("/", postsController.fetchAllPosts);
 
 // 新規投稿を作成する
 router.post("/", postsController.createPost);
+
+// 指定したidの投稿を削除
+router.delete("/:id", postsController.deletePost);
 module.exports = router;

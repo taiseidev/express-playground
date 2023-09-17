@@ -18,6 +18,16 @@ const Post = {
             throw new Error("Failed to create post.");
         }
     },
+
+    deletePost: async (postId: string) => {
+        const sql = `DELETE FROM posts WHERE id = ?`;
+        try {
+            await db.run(sql, [postId]);
+        } catch (error) {
+            console.error("Database error:", error);
+            throw new Error("Failed to delete post");
+        }
+    },
 };
 
 export default Post;

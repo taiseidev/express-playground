@@ -37,6 +37,22 @@ class PostController {
             }
         }
     }
+
+    async deletePost(req: Request, res: Response) {
+        const postId = req.params.id;
+        if (!postId) {
+            return res.status(400).send({ error: "idが指定されていません" });
+        }
+
+        try {
+            await Post.deletePost(postId);
+            res.status(201).send({ message: "Post deleted successfully!" });
+        } catch (error) {
+            if (isError(error)) {
+                res.status(500).send({ error: error.message });
+            }
+        }
+    }
 }
 
 // カスタム型ガード
