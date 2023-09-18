@@ -5,6 +5,8 @@ import postsController from "../controllers/posts-controller";
 
 // 全ての投稿を取得
 router.get("/", postsController.fetchAllPosts);
+// 特定の投稿を取得
+router.get("/:id", postsController.fetchPostById);
 
 // 新規投稿を作成する
 router.post("/", postsController.createPost);

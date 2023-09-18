@@ -8,6 +8,17 @@ const Post = {
         return posts;
     },
 
+    fetchPostById: async (postId: string) => {
+        const sql = `SELECT * FROM posts WHERE id = ?;`;
+        try {
+            const post = await db.get(sql, [postId]);
+            return post;
+        } catch (error) {
+            console.error("Database error:", error);
+            throw new Error(`Failed to fetch post（id: ${postId}）`);
+        }
+    },
+
     createPost: async (userId: number, title: string, body: string) => {
         // パラメータ化されたクエリを使用
         const sql = `INSERT INTO posts (userId, title, body) VALUES (?, ?, ?)`;

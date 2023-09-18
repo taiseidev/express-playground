@@ -7,6 +7,22 @@ class PostController {
         res.json(posts).status(200);
     }
 
+    async fetchPostById(req: Request, res: Response) {
+        const postId = req.params.id;
+        if (!postId) {
+            return res.status(400).send({ error: "idが指定されていません" });
+        }
+        try {
+            const post = await Post.fetchPostById(postId);
+            console.log(post);
+            res.json(post).status(201);
+        } catch (error) {
+            if (isError(error)) {
+                res.status(500).send({ error: error.message });
+            }
+        }
+    }
+
     async createPost(req: Request, res: Response) {
         const { userId, title, body } = req.body;
         let errors = [];
