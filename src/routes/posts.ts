@@ -11,6 +11,10 @@ router.get("/:id", postsController.fetchPostById);
 // 新規投稿を作成する
 router.post("/", postsController.createPost);
 
+// 投稿を更新する
+router.put("/:id", postsController.updatePostById);
+
 // 指定したidの投稿を削除
 router.delete("/:id", postsController.deletePost);
+
 module.exports = router;

@@ -30,6 +30,16 @@ const Post = {
         }
     },
 
+    updatePostById: async (title: string, body: string, postId: string) => {
+        const sql = `UPDATE posts SET title = ?, body = ? WHERE id = ?`;
+        try {
+            await db.run(sql, [title, body, postId]);
+        } catch (error) {
+            console.error("Database error:", error);
+            throw new Error(`Failed to update post`);
+        }
+    },
+
     deletePost: async (postId: string) => {
         const sql = `DELETE FROM posts WHERE id = ?`;
         try {

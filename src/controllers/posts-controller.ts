@@ -4,7 +4,7 @@ import Post from "../models/posts";
 class PostController {
     async fetchAllPosts(_: Request, res: Response) {
         const posts = await Post.fetchAllPosts();
-        res.json(posts).status(200);
+        res.status(200).json(posts);
     }
 
     async fetchPostById(req: Request, res: Response) {
@@ -15,7 +15,7 @@ class PostController {
         try {
             const post = await Post.fetchPostById(postId);
             console.log(post);
-            res.json(post).status(201);
+            res.status(200).json(post);
         } catch (error) {
             if (isError(error)) {
                 res.status(500).send({ error: error.message });
@@ -54,6 +54,36 @@ class PostController {
         }
     }
 
+    async updatePostById(req: Request, res: Response) {
+        const postId = req.params.id;
+        const { title, body } = req.body;
+        let errors = [];
+
+        if (!postId) {
+            errors.push("idが指定されていません");
+        }
+        if (!title) {
+            errors.push("titleが指定されていません");
+        }
+        if (!body) {
+            errors.push("bodyが指定されていません");
+        }
+
+        if (errors.length > 0) {
+            // 400 Bad Request（クライアント側のリクエストに誤りがある）
+            return res.status(400).send({ error: errors.join(", ") });
+        }
+
+        try {
+            await Post.updatePostById(title, body, postId);
+            res.status(200).send({ message: "Post update successfully!" });
+        } catch (error) {
+            if (isError(error)) {
+                res.status(500).send({ error: error.message });
+            }
+        }
+    }
+
     async deletePost(req: Request, res: Response) {
         const postId = req.params.id;
         if (!postId) {
@@ -62,7 +92,7 @@ class PostController {
 
         try {
             await Post.deletePost(postId);
-            res.status(201).send({ message: "Post deleted successfully!" });
+            res.status(200).send({ message: "Post deleted successfully!" });
         } catch (error) {
             if (isError(error)) {
                 res.status(500).send({ error: error.message });

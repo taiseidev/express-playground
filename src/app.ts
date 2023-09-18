@@ -3,6 +3,12 @@ const app = express();
 
 import { initializeDatabase, closeDatabase } from "./models/db";
 
+// JSONボディの解析
+app.use(express.json());
+
+// URLエンコードされたボディの解析
+app.use(express.urlencoded({ extended: true }));
+
 // DBの初期化
 initializeDatabase()
     .then(() => {
@@ -11,9 +17,6 @@ initializeDatabase()
     .catch((error) => {
         console.error("Failed to initialize the database.", error);
     });
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 const postsRouter = require("./routes/posts");
 
